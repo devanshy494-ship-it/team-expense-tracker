@@ -1,0 +1,93 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Light theme */
+  --bg:        #f0ede8;
+  --surface:   #faf8f5;
+  --surface2:  #ede9e2;
+  --border:    rgba(0,0,0,0.09);
+  --border2:   rgba(0,0,0,0.16);
+  --text:      #1a1612;
+  --muted:     #6b6560;
+  --hint:      #a09b96;
+
+  --neon:      #c2ff72;
+  --neon2:     #ff6b6b;
+  --neon3:     #72c2ff;
+  --accent:    #c2ff72;
+  --accent-fg: #0a1a00;
+
+  --food:          #ff6b6b;
+  --transport:     #72c2ff;
+  --shopping:      #ff72c2;
+  --bills:         #ffc272;
+  --entertainment: #c272ff;
+  --other:         #72ffc2;
+
+  --radius:    14px;
+  --radius-sm: 9px;
+  --font: 'Space Grotesk', sans-serif;
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg:        #0d0d0d;
+  --surface:   #141414;
+  --surface2:  #1c1c1c;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.14);
+  --text:      #f0ede8;
+  --muted:     #888;
+  --hint:      #555;
+
+  color-scheme: dark;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 999px; }
+
+/* Selection */
+::selection { background: var(--neon); color: var(--accent-fg); }
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--neon);
+  outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fade-up  { animation: fadeUp  0.4s ease both; }
+.fade-in  { animation: fadeIn  0.3s ease both; }
+
+/* Utility */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }

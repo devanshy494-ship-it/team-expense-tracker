@@ -1,0 +1,243 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+}
+
+.grid {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+.cell {
+  border: 0.5px solid var(--border);
+}
+
+[data-theme="dark"] .cell {
+  border-color: rgba(194, 255, 114, 0.05);
+}
+
+.themeBtn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--surface2);
+  border: 0.5px solid var(--border2);
+  color: var(--text);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.themeBtn:hover {
+  border-color: var(--neon);
+  color: var(--neon);
+}
+
+.card {
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.4s ease both;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.12);
+}
+
+[data-theme="dark"] .card {
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(194,255,114,0.08);
+}
+
+.logoRow {
+  margin-bottom: 6px;
+}
+
+.logo {
+  font-family: var(--font);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: var(--neon);
+}
+
+[data-theme="light"] .logo span {
+  color: #4a8a00;
+}
+
+.sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  margin-bottom: 24px;
+}
+
+.tab {
+  flex: 1;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font);
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tabActive {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.field input {
+  width: 100%;
+  background: var(--surface2);
+  border: 0.5px solid var(--border2);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field input:focus {
+  border-color: var(--neon);
+  box-shadow: 0 0 0 3px rgba(194, 255, 114, 0.12);
+}
+
+[data-theme="light"] .field input:focus {
+  box-shadow: 0 0 0 3px rgba(74, 138, 0, 0.12);
+  border-color: #4a8a00;
+}
+
+.field input::placeholder { color: var(--hint); }
+
+.passWrap { position: relative; }
+.passWrap input { padding-right: 42px; }
+
+.eyeBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 10px;
+  padding: 4px;
+}
+
+.strength {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.strengthBars {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.strengthBar {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  transition: background 0.3s;
+}
+
+.error {
+  background: rgba(255, 107, 107, 0.1);
+  border: 0.5px solid rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.btnSubmit {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--neon);
+  color: var(--accent-fg);
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+}
+
+[data-theme="light"] .btnSubmit {
+  background: #3a7000;
+  color: #fff;
+}
+
+.btnSubmit:hover { opacity: 0.88; }
+.btnSubmit:active { transform: scale(0.98); }
+.btnSubmit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-top-color: var(--accent-fg);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
