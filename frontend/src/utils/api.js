@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL + '/api',
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
@@ -40,15 +39,15 @@ api.interceptors.response.use(
           return api(original);
         });
       }
-
       original._retry = true;
       isRefreshing = true;
-
       try {
         const refreshToken = localStorage.getItem('refreshToken');
         if (!refreshToken) throw new Error('No refresh token');
-
-        const { data } = await axios.post('/api/auth/refresh', { refreshToken });
+        const { data } = await axios.post(
+          import.meta.env.VITE_API_URL + '/api/auth/refresh',
+          { refreshToken }
+        );
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
         processQueue(null, data.accessToken);
