@@ -34,18 +34,25 @@ export async function register(req, res) {
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const tokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
-    console.log('5. Inserting user into DB...');
+    // ✅ TRY TO SEND EMAIL FIRST (before saving to DB)
+    console.log('5. Attempting to send verification email...');
+    try {
+      await sendVerificationEmail(email.toLowerCase(), name.trim(), verificationToken);
+      console.log('✓ Verification email sent successfully');
+    } catch (emailErr) {
+      console.error('✗ Email sending failed, aborting registration:', emailErr.message);
+      return res.status(500).json({ error: 'Failed to send verification email. Please try again.' });
+    }
+
+    // ✅ ONLY SAVE TO DATABASE IF EMAIL SENT SUCCESSFULLY
+    console.log('6. Email sent, now inserting user into DB...');
     const { rows } = await pool.query(
       `INSERT INTO users (name, email, password, verification_token, token_expires_at)
        VALUES ($1, $2, $3, $4, $5)
        RETURNING id, name, email`,
       [name.trim(), email.toLowerCase(), hash, verificationToken, tokenExpiry]
     );
-    console.log('6. User created:', rows[0].id);
-
-    console.log('7. Sending verification email...');
-    await sendVerificationEmail(rows[0].email, rows[0].name, verificationToken);
-    console.log('8. Email sent successfully');
+    console.log('7. User created:', rows[0].id);
 
     res.status(201).json({
       message: 'Account created. Please check your email to verify your account.',
