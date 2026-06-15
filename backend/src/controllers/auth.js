@@ -24,7 +24,7 @@ export async function register(req, res) {
     console.log('2. Existing check done, found:', existing.length);
 
     if (existing.length > 0) {
-      return res.status(409).json({ error: 'Registration failed. Please try again.' });
+      return res.status(409).json({ error: 'Email already registered. Please sign in or use a different email.' });
     }
 
     console.log('3. Hashing password...');
