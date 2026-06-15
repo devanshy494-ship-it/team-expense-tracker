@@ -13,6 +13,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// ── Trust Proxy (BEFORE rate limiting) ──
+app.set('trust proxy', 1);
+
 // ── Security Headers ──
 app.use(helmet({
   contentSecurityPolicy: {
@@ -44,6 +47,7 @@ app.use(rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: 'Too many requests, slow down.' },
+  skip: (req) => process.env.NODE_ENV !== 'production',
 }));
 
 // ── Body Parser ──
