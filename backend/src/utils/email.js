@@ -6,7 +6,7 @@ export async function sendVerificationEmail(toEmail, name, token) {
   const verifyUrl = `${process.env.CLIENT_ORIGIN}/verify-email?token=${token}`;
 
   const { error } = await resend.emails.send({
-    from: 'ExpenseIQ <onboarding@resend.dev>',  // use this until you add a domain
+    from: 'ExpenseIQ <onboarding@resend.dev>',
     to: toEmail,
     subject: 'Verify your ExpenseIQ account',
     html: `
