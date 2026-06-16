@@ -11,7 +11,8 @@ import budgetRoutes from './routes/budgets.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+ const app = express(
+; const app = express(;c importonst PORT = process.env.PORT || 5000;
 
 // ── Security Headers ──
 app.use(helmet({

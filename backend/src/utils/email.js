@@ -1,18 +1,12 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendVerificationEmail(toEmail, name, token) {
   const verifyUrl = `${process.env.CLIENT_ORIGIN}/verify-email?token=${token}`;
 
-  await transporter.sendMail({
-    from: `"ExpenseIQ" <${process.env.FROM_EMAIL}>`,
+  await resend.emails.send({
+    from: 'ExpenseIQ <onboarding@resend.dev>',
     to: toEmail,
     subject: 'Verify your ExpenseIQ account',
     html: `
@@ -36,4 +30,4 @@ export async function sendVerificationEmail(toEmail, name, token) {
       </div>
     `,
   });
-}   
+}
