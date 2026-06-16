@@ -11,13 +11,10 @@ import budgetRoutes from './routes/budgets.js';
 dotenv.config();
 
 const app = express();
- const app = express(
-; const app = express(;c importonst PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-// ── Trust Proxy (BEFORE rate limiting) ──
 app.set('trust proxy', 1);
 
-// ── Security Headers ──
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -33,7 +30,6 @@ app.use(helmet({
   referrerPolicy: { policy: 'no-referrer' },
 }));
 
-// ── CORS ──
 app.use(cors({
   origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -41,7 +37,6 @@ app.use(cors({
   credentials: true,
 }));
 
-// ── Global Rate Limit ──
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 200,
@@ -51,34 +46,27 @@ app.use(rateLimit({
   skip: (req) => process.env.NODE_ENV !== 'production',
 }));
 
-// ── Body Parser ──
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 
-// ── Remove fingerprinting ──
 app.disable('x-powered-by');
 
-// ── Routes ──
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/budgets', budgetRoutes);
 
-// ── Health Check ──
 app.get('/api/health', (_, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
 
-// ── 404 ──
 app.use((_, res) => res.status(404).json({ error: 'Route not found' }));
 
-// ── Global Error Handler ──
 app.use((err, req, res, _next) => {
   console.error('Unhandled error:', err);
   res.status(500).json({ error: 'Internal server error' });
 });
 
-// ── Boot ──
 async function start() {
   await initDB();
-  app.listen(PORT, () => console.log(`✓ Server running on port ${PORT}`));
+  app.listen(PORT, () => console.log('Server running on port ' + PORT));
 }
 
 start().catch(err => {
