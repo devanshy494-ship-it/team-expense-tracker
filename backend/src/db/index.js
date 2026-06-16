@@ -18,6 +18,15 @@ pool.on('error', (err) => {
   process.exit(-1);
 });
 
+// After pool is created, add this:
+setInterval(async () => {
+  try {
+    await pool.query('SELECT 1');
+  } catch (err) {
+    console.error('Keep-alive query failed:', err);
+  }
+}, 4 * 60 * 1000); // every 4 minutes
+
 export async function initDB() {
   const client = await pool.connect();
   try {
