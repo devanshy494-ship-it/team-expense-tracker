@@ -1,6 +1,6 @@
 # ExpenseIQ — Full Stack Expense Tracker
 
-React + Vite frontend · Express + JWT backend · Neon PostgreSQL · Railway deployment
+React + Vite frontend · Express + JWT backend · Neon PostgreSQL · Railway deployment 
 
 ---
 
